@@ -3,14 +3,14 @@ import model.Motorcycle;
 import model.Plane;
 import model.Vehicle;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import service.VehicleService;
 import service.VehicleServiceImpl;
 import java.util.List;
 
 public class app {
     public static void main(String[] args) {
-        ApplicationContext container = new ClassPathXmlApplicationContext("app.xml");
+        ApplicationContext container = new FileSystemXmlApplicationContext("config/app.xml");
 
         VehicleService service = container.getBean("vehicleService",VehicleServiceImpl.class);
 

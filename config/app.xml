@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:app.properties"/>
+
+    <bean id = "car" class="model.Car" scope="prototype"/>
+
+    <bean id = "plane" class="model.Plane" scope="prototype"/>
+
+    <bean id = "motorcycle" class="model.Motorcycle" scope="prototype"/>
+
+    <bean id = "databaseOperation" class="dao.VehicleDaoImpl" init-method="connectToDatabase" destroy-method="disconnectToDatabase">
+              <property name="url" value="${db.url}"/>
+              <property name="username" value="${db.username}"/>
+              <property name="password" value="${db.password}"/>
+        </bean>
+
+    <bean id = "vehicleService" class="service.VehicleServiceImpl">
+        <constructor-arg ref = "databaseOperation"/>
+    </bean>
+
+</beans>

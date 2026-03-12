@@ -1,5 +1,10 @@
-package model;
+package main.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Vehicle {
    private Long id ;
    private String type ;
@@ -15,12 +20,6 @@ public abstract class Vehicle {
        setPrice(price);
        setType(type);
    }
-    public void setId(Long id){
-       this.id = id ;
-    }
-    public Long getId() { return id; }
-
-    public String getType() { return type; }
 
     public void setType(String type) {
         if(type == null  || type.trim().isEmpty()){
@@ -29,8 +28,6 @@ public abstract class Vehicle {
         this.type = type;
     }
 
-    public Double getPrice() { return price; }
-
     public void setPrice(Double price) {
         if(price <= 0){
             throw new IllegalArgumentException("Price must be > 0");
@@ -38,7 +35,6 @@ public abstract class Vehicle {
         this.price = price;
     }
 
-    public String getBrand() { return brand; }
 
     public void setBrand(String brand) {
         if(brand == null  || brand.trim().isEmpty()){
@@ -47,7 +43,6 @@ public abstract class Vehicle {
         this.brand = brand;
     }
 
-    public String getColor() { return color; }
 
     public void setColor(String color) {
         if(color == null  || color.trim().isEmpty()){

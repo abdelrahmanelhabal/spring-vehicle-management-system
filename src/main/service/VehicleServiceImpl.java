@@ -1,15 +1,20 @@
-package service;
-import dao.VehicleDao;
-import model.Vehicle;
+package main.service;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import main.dao.VehicleDao;
+import main.model.Vehicle;
+import org.springframework.stereotype.Component;
 import java.util.List;
 
+@Component
+@AllArgsConstructor
+@Setter
+@Getter
 public class VehicleServiceImpl implements VehicleService {
+
     private final VehicleDao vehicleDao;
-
-    public VehicleServiceImpl(VehicleDao vehicleDao){
-        this.vehicleDao = vehicleDao;
-    }
-
 
     @Override
     public void save(Vehicle vehicle) {

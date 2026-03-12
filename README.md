@@ -1,60 +1,65 @@
-# Spring Vehicle Management System
+# Spring Vehicle Management System (v2)
 
-A simple Vehicle Management System built using **Spring (IoC)** and
-**JDBC** following a clean layered architecture (DAO → Service → App).
+A simple **Vehicle Management System** built using **Spring IoC** and **JDBC**, following a clean layered architecture: **DAO → Service → App → Database**.
+
+This version upgrades the project to **annotation-based Spring configuration** with constructor-based dependency injection and better entity design.
 
 ## Version Information
 
-- **Current Version:** v1 
-  - Configuration: XML-based Spring configuration
-- **Next Version:** v2 (planned) 
-  - Will use annotation-based Spring configuration
-  
+* **Current Version:** v2
+* **Configuration:** Annotation-based Spring configuration
+* **Previous Version:** v1 (XML-based configuration)
+
 ## Features
 
--   Add new vehicles to database
--   Layered architecture:
-    -   DAO Layer (Database access)
-    -   Service Layer (Business logic)
-    -   Model Layer (Entities)
--   Custom `DaoException` for better error handling
--   Externalized configuration using `app.properties`
+* Add, update, delete, and retrieve vehicles from the database
+* Clean layered architecture:
+
+  * **DAO Layer:** Database operations
+  * **Service Layer:** Business logic
+  * **Model Layer:** Entity classes (Vehicle, Plane, etc.)
+* Constructor-based dependency injection using Spring IoC
+* Lifecycle management with `@PostConstruct` and `@PreDestroy`
+* Proper JDBC resource management with try-with-resources
+* Validation and immutability in entity classes
+* Custom `DaoException` for better error handling
+* Externalized configuration using `app.properties`
 
 ## Project Structure
 
-    spring-vehicle-management-system
-    │
-    ├── config/
-    │   └── app.xml
-    │
-    ├── resources/
-    │   └── app.properties
-    │
-    ├── src/
-    │   ├── dao/
-    │   ├── model/
-    │   ├── service/
-    │   └── app/
-    │
-    └── Database/
+```
+spring-vehicle-management-system
+│
+├── Database/                       
+├── libs/                           
+├── resources/
+│   └── app.properties              
+├── src/
+│   └── main/
+│       ├── config/                 
+│       ├── dao/                    
+│       ├── model/                  
+│       ├── service/                
+│       └── app/                        
+```
 
 ## Technologies Used
 
--   Java 17
--   Spring Framework (IoC Container)
--   JDBC
--   MySQL
--   IntelliJ IDEA
+* Java 17
+* Spring Framework (IoC container)
+* JDBC (with MySQL)
+* MySQL Database
+* IntelliJ IDEA
 
 ## Configuration
 
-Database configuration is stored inside:
+Database configuration is stored in:
 
-    resources/app.properties
+`resources/app.properties`
 
 Example:
 
-``` properties
+```properties
 db.url=jdbc:mysql://localhost:3306/vehicle_db
 db.username=root
 db.password=1234
@@ -62,9 +67,9 @@ db.password=1234
 
 ## Database Setup
 
-Example table:
+Example table for vehicles:
 
-``` sql
+```sql
 CREATE TABLE vehicle (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     type VARCHAR(50),
@@ -74,28 +79,30 @@ CREATE TABLE vehicle (
 );
 ```
 
-> Make sure `price` uses `DECIMAL(10,2)` or larger to avoid
-> out-of-range errors.
+> Make sure `price` uses `DECIMAL(10,2)` or larger to avoid out-of-range errors.
 
 ## How to Run
 
-1.  Create the MySQL database.
-2.  Update `app.properties` with your DB credentials.
-3.  Run the `main` class inside `app` package.
+1. Create the MySQL database.
+2. Update `app.properties` with your DB credentials.
+3. Run the main class inside the `app` package.
 
 ## Architecture Overview
 
-    App → Service → DAO → Database
+```
+App → Service → DAO → Database
+```
 
--   **App**: Entry point\
--   **Service**: Business logic\
--   **DAO**: Database operations\
--   **Model**: Entity classes
+* **App:** Entry point
+* **Service:** Business logic and validation
+* **DAO:** Database operations
+* **Model:** Entity classes (Vehicle, Plane, etc.)
 
-This project demonstrates:
+## Improvements in v2
 
--   Spring IoC usage
--   Constructor/Setter injection
--   Clean separation of concerns
--   Custom exception handling
--   JDBC best practices
+* Replaced XML configuration with **annotation-based Spring configuration** (`@Component`, `@Service`, `@Repository`)
+* **Constructor-based dependency injection** for all services and DAOs
+* Lifecycle management with `@PostConstruct` / `@PreDestroy` in `DBConfig`
+* Entities (`Vehicle`, `Plane`) are now **immutable and plain POJOs**
+* Better **resource management** in DAO layer (try-with-resources)
+* Ready for **unit testing** and **multi-instance objects** (prototype beans if needed)

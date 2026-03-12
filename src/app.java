@@ -1,18 +1,20 @@
-import model.Car;
-import model.Motorcycle;
-import model.Plane;
-import model.Vehicle;
+import main.config.Config;
+import main.model.Car;
+import main.model.Motorcycle;
+import main.model.Plane;
+import main.model.Vehicle;
+import main.service.VehicleService;
+import main.service.VehicleServiceImpl;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-import service.VehicleService;
-import service.VehicleServiceImpl;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.util.List;
 
 public class app {
     public static void main(String[] args) {
-        ApplicationContext container = new FileSystemXmlApplicationContext("config/app.xml");
+        ApplicationContext container = new AnnotationConfigApplicationContext(Config.class);
 
-        VehicleService service = container.getBean("vehicleService",VehicleServiceImpl.class);
+        VehicleService service = container.getBean("vehicleServiceImpl", VehicleServiceImpl.class);
 
         Vehicle car1 = (Car) container.getBean("car",500000.0,"BMW","Black");
 
@@ -25,6 +27,7 @@ public class app {
         Vehicle motorcycle1 = (Motorcycle) container.getBean("motorcycle",20000.0,"Yamaha R1","Black");
 
         Vehicle motorcycle2 = (Motorcycle) container.getBean("motorcycle",15000.0,"Honda CBR600","Red");
+
         service.save(car1);
         service.save(car2);
         service.save(plane1);

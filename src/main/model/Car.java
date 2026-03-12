@@ -1,5 +1,10 @@
-package model;
+package main.model;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")
 public class Car extends Vehicle{
     public Car(){
         setType("Car");

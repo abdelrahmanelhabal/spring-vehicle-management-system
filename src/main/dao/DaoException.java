@@ -1,4 +1,4 @@
-package dao;
+package main.dao;
 
 public class DaoException extends RuntimeException{
     public DaoException(String message){

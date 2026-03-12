@@ -1,12 +1,12 @@
-package dao;
-import model.Vehicle;
+package main.service;
+import main.model.Vehicle;
 import java.util.List;
 
-public interface VehicleDao {
+public interface VehicleService {
     public void save(Vehicle vehicle);
     public void delete(Long id);
     public void update(Long id , Vehicle vehicle);
-    public List<Vehicle> getAll();
-    public List<Vehicle> getAllByType(String type);
     public Vehicle getById(Long id);
+    public List<Vehicle> getAll();
+    public List<Vehicle> getByType(String type);
 }
